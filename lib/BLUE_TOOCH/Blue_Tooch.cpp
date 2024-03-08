@@ -1,16 +1,16 @@
 
 #include <Blue_Tooch.h>
+
+
+
+
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristic = NULL;
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
 uint32_t value = 0;
-
-// See the following for generating UUIDs:
-// https://www.uuidgenerator.net/
-
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+char gReceivedValue[MAX_RX_VALUE_LENGTH + 1]; // the last bit storage '\0'
+uint8_t gReceviedStatue = 0;
 
 
 class MyServerCallbacks: public BLEServerCallbacks {
@@ -28,8 +28,11 @@ class MyCallbacks: public BLECharacteristicCallbacks {
         std::string rxValue = pCharacteristic->getValue();
 
         if (rxValue.length() > 0) {
-            Serial.print("Received value: ");
-            Serial.println(rxValue.c_str());
+            //Serial.print("Received value: ");
+            //Serial.println(rxValue.c_str());
+            rxValue.copy(gReceivedValue,MAX_RX_VALUE_LENGTH);
+            gReceivedValue[rxValue.length()] = '\0';
+            gReceviedStatue = 1;
         }
     }
 };
