@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "apartment_software",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"esp32-hal.h": "c",
+			"string": "cpp",
+			"bledevice.h": "c"
+		}
+	}
+}
